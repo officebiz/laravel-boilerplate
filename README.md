@@ -8,6 +8,7 @@ cp .env.example .env # and setup .env
 # create database
 # setup APP_URL
 # setup DB_DATABASE, DB_USERNAME, DB_PASSWORD
+# setup GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET
 composer install
 php artisan key:generate
 php artisan storage:link
