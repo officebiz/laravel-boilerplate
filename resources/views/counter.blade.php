@@ -11,5 +11,6 @@
             <livewire:counter />
         </div>
         <livewire:scripts />
+        @vite('resources/js/app.js')
     </body>
 </html>

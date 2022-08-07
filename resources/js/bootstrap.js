@@ -18,17 +18,47 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
  * allows your team to easily build robust real-time web applications.
  */
 
-// import Echo from 'laravel-echo';
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+window.Pusher = Pusher;
 
-// import Pusher from 'pusher-js';
-// window.Pusher = Pusher;
+/**
+ *  Pusher
+ *
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: import.meta.env.VITE_PUSHER_APP_KEY,
+    wsHost: import.meta.env.VITE_PUSHER_HOST ?? `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
+    wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
+    wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
+    cluster: import.meta.env.VITE_PUSHER_APP_CLUSTER ?? 'ap1',
+    forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
+    enabledTransports: ['ws', 'wss'],
+});
+*/
 
-// window.Echo = new Echo({
-//     broadcaster: 'pusher',
-//     key: import.meta.env.VITE_PUSHER_APP_KEY,
-//     wsHost: import.meta.env.VITE_PUSHER_HOST ?? `ws-${import.meta.env.VITE_PUSHER_APP_CLUSTER}.pusher.com`,
-//     wsPort: import.meta.env.VITE_PUSHER_PORT ?? 80,
-//     wssPort: import.meta.env.VITE_PUSHER_PORT ?? 443,
-//     forceTLS: (import.meta.env.VITE_PUSHER_SCHEME ?? 'https') === 'https',
-//     enabledTransports: ['ws', 'wss'],
-// });
+/**
+ *  Ably
+ */
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: import.meta.env.VITE_ABLY_PUBLIC_KEY,
+    wsHost: 'realtime-pusher.ably.io',
+    wsPort: 443,
+    disableStats: true,
+    encrypted: true,
+});
+
+Pusher.logToConsole = (import.meta.env.VITE_PUSHER_LOG_TO_CONSOLE ?? 'false') === 'true';
+
+/**
+ *  Listen to a channel, as an example
+ *
+window.Echo.channel('counters')
+    .subscribed(() => {
+        console.log("Subscriped " + "counters");
+    })
+    .listen('CounterUpdated', (e) => {
+        console.log(e);
+    });
+*/
