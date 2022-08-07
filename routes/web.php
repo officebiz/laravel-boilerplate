@@ -26,6 +26,10 @@ Route::get('/social', function () {
     return view('social');
 })->name('social');
 
+Route::get('/counter', function () {
+    return view('counter');
+})->name('counter');
+
 Route::controller(SocialiteController::class)->group(function () {
     Route::get('/auth/{provider}/redirect', 'redirect')->name('auth.redirect');
     Route::get('/auth/{provider}/callback', 'callback')->name('auth.callback');
